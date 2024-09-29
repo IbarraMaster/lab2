@@ -1,0 +1,135 @@
+// Definir los pines de los LEDs RGB
+// Semáforo 1
+const int red1Pin = 11;    // Rojo del Semáforo 1
+const int green1Pin = 10;  // Verde del Semáforo 1
+const int blue1Pin = 9;    // Azul del Semáforo 1
+
+// Semáforo 2
+const int red2Pin = 8;     // Rojo del Semáforo 2
+const int green2Pin = 7;   // Verde del Semáforo 2
+const int blue2Pin = 6;    // Azul del Semáforo 2
+
+// Semáforo 3
+const int red3Pin = 5;     // Rojo del Semáforo 3
+const int green3Pin = 3;   // Verde del Semáforo 3
+const int blue3Pin = 4;    // Azul del Semáforo 3
+
+const int switchPin = 2;    // Pin del interruptor
+
+void setup() {
+  // Inicializar los pines de los LEDs RGB como salida
+  pinMode(red1Pin, OUTPUT);
+  pinMode(green1Pin, OUTPUT);
+  pinMode(blue1Pin, OUTPUT);
+  
+  pinMode(red2Pin, OUTPUT);
+  pinMode(green2Pin, OUTPUT);
+  pinMode(blue2Pin, OUTPUT);
+  
+  pinMode(red3Pin, OUTPUT);
+  pinMode(green3Pin, OUTPUT);
+  pinMode(blue3Pin, OUTPUT);
+  
+  // Inicializar el pin del interruptor como entrada
+  pinMode(switchPin, INPUT);
+
+  // Inicializar el puerto serial
+  Serial.begin(9600);
+}
+
+void loop() {
+  // Leer el estado del interruptor
+  int switchState = digitalRead(switchPin);
+  
+  // Si el interruptor está encendido
+  if (switchState == HIGH) {
+    // Semáforo 1 (verde)
+    digitalWrite(red1Pin, LOW);     // Rojo del semáforo 1 apagado
+    digitalWrite(green1Pin, HIGH);  // Verde del semáforo 1 encendido
+    digitalWrite(blue1Pin, LOW);     // Azul del semáforo 1 apagado
+
+    digitalWrite(red2Pin, HIGH);     // Rojo del semáforo 2 encendido
+    digitalWrite(green2Pin, LOW);    // Verde del semáforo 2 apagado
+    digitalWrite(blue2Pin, LOW);      // Azul del semáforo 2 apagado
+
+    digitalWrite(red3Pin, HIGH);     // Rojo del semáforo 3 encendido
+    digitalWrite(green3Pin, LOW);    // Verde del semáforo 3 apagado
+    digitalWrite(blue3Pin, LOW);      // Azul del semáforo 3 apagado
+    Serial.println("Semáforo 1: Verde");
+    delay(3000); // Tiempo en verde
+
+    // Semáforo 1 en rojo y semáforo 2 (verde)
+    digitalWrite(red1Pin, HIGH);     // Rojo del semáforo 1 encendido
+    digitalWrite(green1Pin, LOW);    // Verde del semáforo 1 apagado
+    digitalWrite(blue1Pin, LOW);      // Azul del semáforo 1 apagado
+
+    digitalWrite(red2Pin, LOW);      // Rojo del semáforo 2 apagado
+    digitalWrite(green2Pin, HIGH);   // Verde del semáforo 2 encendido
+    digitalWrite(blue2Pin, LOW);      // Azul del semáforo 2 apagado
+
+    digitalWrite(red3Pin, HIGH);     // Rojo del semáforo 3 encendido
+    digitalWrite(green3Pin, LOW);    // Verde del semáforo 3 apagado
+    digitalWrite(blue3Pin, LOW);      // Azul del semáforo 3 apagado
+    Serial.println("Semáforo 2: Verde");
+    delay(3000); // Tiempo en verde
+
+    // Semáforo 2 en rojo y semáforo 3 (verde)
+    digitalWrite(red1Pin, HIGH);     // Rojo del semáforo 1 encendido
+    digitalWrite(green1Pin, LOW);    // Verde del semáforo 1 apagado
+    digitalWrite(blue1Pin, LOW);      // Azul del semáforo 1 apagado
+
+    digitalWrite(red2Pin, HIGH);      // Rojo del semáforo 2 encendido
+    digitalWrite(green2Pin, LOW);     // Verde del semáforo 2 apagado
+    digitalWrite(blue2Pin, LOW);       // Azul del semáforo 2 apagado
+
+    digitalWrite(red3Pin, LOW);       // Rojo del semáforo 3 apagado
+    digitalWrite(green3Pin, HIGH);    // Verde del semáforo 3 encendido
+    digitalWrite(blue3Pin, LOW);       // Azul del semáforo 3 apagado
+    Serial.println("Semáforo 3: Verde");
+    delay(3000); // Tiempo en verde
+
+    // Apagar todos los LEDs antes de reiniciar
+    digitalWrite(red1Pin, LOW);
+    digitalWrite(green1Pin, LOW);
+    digitalWrite(blue1Pin, LOW);
+    digitalWrite(red2Pin, LOW);
+    digitalWrite(green2Pin, LOW);
+    digitalWrite(blue2Pin, LOW);
+    digitalWrite(red3Pin, LOW);
+    digitalWrite(green3Pin, LOW);
+    digitalWrite(blue3Pin, LOW);
+  } else {
+    // Si el interruptor está apagado, parpadear en amarillo (mezcla rojo y verde)
+    for (int j = 0; j < 10; j++) { // Parpadear 10 veces
+      // Todos los semáforos en amarillo
+      digitalWrite(red1Pin, HIGH);
+      digitalWrite(green1Pin, HIGH);
+      digitalWrite(blue1Pin, LOW);
+
+      digitalWrite(red2Pin, HIGH);
+      digitalWrite(green2Pin, HIGH);
+      digitalWrite(blue2Pin, LOW);
+
+      digitalWrite(red3Pin, HIGH);
+      digitalWrite(green3Pin, HIGH);
+      digitalWrite(blue3Pin, LOW);
+
+      delay(500); // Mantener encendido por 500 ms
+
+      // Apagar todos los LEDs
+      digitalWrite(red1Pin, LOW);
+      digitalWrite(green1Pin, LOW);
+      digitalWrite(blue1Pin, LOW);
+
+      digitalWrite(red2Pin, LOW);
+      digitalWrite(green2Pin, LOW);
+      digitalWrite(blue2Pin, LOW);
+
+      digitalWrite(red3Pin, LOW);
+      digitalWrite(green3Pin, LOW);
+      digitalWrite(blue3Pin, LOW);
+
+      delay(500); // Mantener apagado por 500 ms
+    }
+  }
+}
